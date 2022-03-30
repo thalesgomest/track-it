@@ -1,24 +1,48 @@
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import {useState} from "react";
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+
 import Logo from "./../assets/trackit-logo.png";
-import styled from "styled-components"
+
+function LoginPage () {
+
+    const navigate = useNavigate();
+    const [data, setData] = useState({email: "", password: ""});
 
 
+    function signIn(e) {
+        e.preventDefault();
 
-function LoginScreen () {
+        const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
+
+        const promise = axios.post(URL, data);
+        promise.then((response) => {
+            console.log(response);
+            navigate("/login");
+        })
+        promise.catch((error) => error.response)
+    }
+
+
     return (
         <HomePage>
             <Img src={Logo} alt="TrackIt"/>
             <p className="app-name">TrackIt</p>
-            <Form>
-                <input type="email" placeholder="email" required />
-                <input type="password" placeholder="password" required />
+            <Form onSubmit={signIn}>
+                <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" required value={data.email}onChange={(e) => setData({...data, email: e.target.value})} />
+                <input type="password" placeholder="Password" required value={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
                 <button type="submit">Entrar</button>
-                <Cadastro>Não tem uma conta? Cadastre-se!</Cadastro>
+                <Link to="/cadastro">
+                    <Cadastro>Don't have an account? Sign Up now</Cadastro>
+                </Link>
             </Form>
         </HomePage>
     );
 }
 
-export default LoginScreen;
+export default LoginPage;
 
 const HomePage = styled.div`
     display: flex;
@@ -54,18 +78,20 @@ const Form = styled.form`
         border: 1px solid #D5D5D5;
         padding-left: 11px;
         margin-bottom: 6px;
-    }
-
-    input:focus {
-        outline: none;
-    }
-
-    input:placeholder {
+        font-size: 16px;
         font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 19.976px;
-        color: #DBDBDB;
+
+        &:focus {
+            outline: none;
+        }
+
+        &::placeholder {
+            font-family: 'Lexend Deca';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 19.976px;
+            color: #DBDBDB;
+        }
     }
 
     input:focus::placeholder {
@@ -93,5 +119,5 @@ const Cadastro = styled.p`
     font-weight: 400;
     font-size: 13.976px;
     color: #52B6FF;
-    text-decoration-line: underline;
-`;
+    text-decoration: underline;
+    `

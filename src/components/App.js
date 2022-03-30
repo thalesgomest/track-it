@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LoginScreen from "./LoginScreen";
+import LoginPage from "./LoginPage";
+import SignUpPage from "./SignUpPage";
 
 import "./../css/reset.css"
 import "./../css/style.css"
@@ -10,8 +11,8 @@ function App() {
         <BrowserRouter>
             {/* <Header /> */}
             <Routes>
-                <Route path="/" element={<LoginScreen />}></Route>
-                {/* <Route path="/cadastro" element={<RegistrationScreen />}></Route> */}
+                <Route path="/" element={<LoginPage />}></Route>
+                <Route path="/cadastro" element={<SignUpPage />}></Route>
                 {/* <Route path="/habitos" element={<Habits />}></Route> */}
                 {/* <Route path="/hoje" element={<Today />}></Route> */}
                 {/* <Route path="/historico" element={<DataHistory />}></Route> */}
