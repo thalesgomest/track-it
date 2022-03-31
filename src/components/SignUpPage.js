@@ -3,18 +3,20 @@ import { Link } from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { ThreeDots } from  'react-loader-spinner';
+
 
 import Logo from "./../assets/trackit-logo.png";
 
 import imgCheckURL from "../utils/imgCheckURL";
-// import Header from "./Header";
 
 
 
 function SignUpPage() {
     
     const [data, setData] = useState({email: "", password: "", name: "", image: ""});
-    const [preview, setPreview] = useState("https://i.imgur.com/B83hy2z.png")
+    const [preview, setPreview] = useState("https://i.imgur.com/B83hy2z.png");
+    const [dataLoading, setDataLoading] = useState({loading: false, classNameLoading:""});
     const navigate = useNavigate();
 
     function previewImage() {
@@ -25,27 +27,34 @@ function SignUpPage() {
         } else {
             setPreview(data.image)
         }
-
-        console.log(data)
     }
 
     function signUp(e) {
         e.preventDefault();
 
+        setDataLoading({...dataLoading, loading:true, classNameLoading: "input-disabled"});
+
         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
 
-        const promise = axios.post(URL, data);
+        const promise = axios.post(URL, {
+            email: data.email,
+            name: data.name,
+            image: data.image,
+            password: data.password
+        });
         promise.then((response) => {
             console.log(response);
-            navigate("/login");
+            navigate("/");
         })
-        promise.catch((error) => error.response)
+        promise.catch((error) => {
+            console.log(error.response)
+            alert("Sign Up error! Check your credentials and try again");
+        })
     }
 
 
     return (
         <>
-            {/* <Header /> */}
             <HomePage>
                 <Img src={Logo} alt="TrackIt"/>
                 <p className="app-name">TrackIt</p>
@@ -54,19 +63,82 @@ function SignUpPage() {
                     }}>
                 </ProfileImage>
                 <Form onSubmit={signUp}>
-                    <input type="email" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value={data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
-                    <input type="password" placeholder="Password" required value={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
-                    <input type="text" placeholder="Name" required value={data.name} onChange={(e) => setData({...data, name: e.target.value})}/>
-                    <input type="text" placeholder="Profile Image URL" required value={data.image} onChange={(e) => setData({...data, image: e.target.value})} />
-                    <button type="button" onClick={previewImage}>Click for preview image profile</button>
-                    <button type="submit">Enter</button>
+                    <input 
+                        type="email" 
+                        disabled={dataLoading.loading} 
+                        className={dataLoading.classNameLoading} 
+                        placeholder="Email" 
+                        required 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+                        value={data.email} 
+                        onChange={(e) => setData({...data, email: e.target.value})}
+                    />
+                    <input 
+                        type="password" 
+                        disabled={dataLoading.loading} 
+                        className={dataLoading.classNameLoading} 
+                        placeholder="Password" 
+                        required 
+                        value={data.password} 
+                        onChange={(e) => setData({...data, password: e.target.value})}
+                    />
+                    <input 
+                        type="text" 
+                        disabled={dataLoading.loading} 
+                        className={dataLoading.classNameLoading} 
+                        placeholder="Nome" 
+                        required 
+                        value={data.name} 
+                        onChange={(e) => setData({...data, name: e.target.value})}
+                    />
+                    <input 
+                        type="text" 
+                        disabled={dataLoading.loading} 
+                        className={dataLoading.classNameLoading} 
+                        placeholder="URL Imagem de Perfil" 
+                        required 
+                        value={data.image} 
+                        onChange={(e) => setData({...data, image: e.target.value})} 
+                    />
+                    <button type="button" onClick={previewImage}>Preview Imagem</button>
+                    {dataLoading.loading === false ? 
+                        <button type="submit">Entrar</button> :
+                        <button disabled>
+                            <ThreeDots color="rgba(255, 255, 255, 1)" height={13} width={51} />
+                        </button>
+                    }
                     <Link to="/">
-                        <Cadastro>Have a Account? Sign In</Cadastro>
+                        <Cadastro>Já tem uma conta? Faça login!</Cadastro>
                     </Link>
                 </Form>
             </HomePage>
         </>
-    );
+    )
+    // ) : (
+    //     <>
+    //         <HomePage>
+    //             <Img src={Logo} alt="TrackIt"/>
+    //             <p className="app-name">TrackIt</p>
+    //             <ProfileImage style={{ 
+    //                 backgroundImage: `url(${preview})` 
+    //                 }}>
+    //             </ProfileImage>
+    //             <Form onSubmit={signUp}>
+    //                 <input type="email" className="input-disabled" disabled placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value={data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
+    //                 <input type="password" className="input-disabled" disabled placeholder="Password" required value={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
+    //                 <input type="text" className="input-disabled" disabled placeholder="Name" required value={data.name} onChange={(e) => setData({...data, name: e.target.value})}/>
+    //                 <input type="text" className="input-disabled" disabled placeholder="Profile Image URL" required value={data.image} onChange={(e) => setData({...data, image: e.target.value})} />
+    //                 <button type="button" disabled onClick={previewImage}>Click for preview image profile</button>
+    //                 <button disabled>
+    //                     <ThreeDots color="rgba(255, 255, 255, 1)" height={13} width={51} />
+    //                 </button>
+    //                 <Link to="/">
+    //                     <Cadastro>Have a Account? Sign In</Cadastro>
+    //                 </Link>
+    //             </Form>
+    //         </HomePage>
+    //     </>
+    // )
 }
 
 export default SignUpPage;
@@ -130,15 +202,20 @@ const Form = styled.form`
             font-size: 19.976px;
             color: #DBDBDB;
         }
+
+        &:focus::placeholder {
+        color: transparent;
+        }
     }
 
-    input:focus::placeholder {
-        color: transparent;
+    .input-disabled {
+        background-color: rgba(212, 212, 212, 1);
+        color: rgba(175, 175, 175, 1)
     }
 
     button:nth-of-type(1) {
         margin-bottom: 6px;
-        font-size: 15px;
+        font-size: 20.976px;
     }
     
 
@@ -157,6 +234,9 @@ const Form = styled.form`
         font-weight: 400;
         font-size: 20.976px;
         color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 `;
 
@@ -167,4 +247,5 @@ const Cadastro = styled.p`
     font-size: 13.976px;
     color: #52B6FF;
     text-decoration: underline;
+    margin-bottom: 97px;
 `;

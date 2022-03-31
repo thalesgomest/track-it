@@ -1,11 +1,16 @@
 import styled from "styled-components"
-
+import UserContext from "../contexts/UserContext";
+import {useContext} from "react";
 
 function Header() {
+
+    const {userContext} = useContext(UserContext);
+    console.log(userContext);
+
     return (
         <HeaderApp >
             <span>TrackIt</span>
-            <img src="https://i.imgur.com/QRp3LTk.png" alt="" />
+            <img src={userContext.image} alt="" />
         </HeaderApp>
     );
 }
@@ -20,13 +25,13 @@ const HeaderApp = styled.div`
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 18px;
 
     img {
-        
         width: 51px;
         height: 51px;
         background-position: 50% 50%;
