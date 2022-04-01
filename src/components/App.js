@@ -3,7 +3,6 @@ import { useState, useEffect} from "react";
 
 
 import UserContext from "../contexts/UserContext";
-import TokenContext from "../contexts/TokenContext";
 import SignUpPage from "./SignUpPage";
 import Habits from "./Habits";
 import LoginPage from "./LoginPage";
@@ -17,25 +16,18 @@ import "./../css/style.css"
 
 function App() {
 
-    const [tokenContext, setTokenContext] = useState({token: ""});
-    const [userContext, setUserContext] = useState({name: "", email: "", image: ""})
-    const [completedTasks, setCompletedTasks] = useState(0);
+    const [user, setUser] = useState(
+        localStorage.getItem('userdata')
+            ? JSON.parse(localStorage.getItem('userdata'))
+            : null
+    );
+
+    const [completedHabits, setCompletedHabits] = useState(0);
     const location = useLocation();
 
-    useEffect(() => {
-        if (localStorage.getItem('userdata')) {
-            setUserContext({
-                name: JSON.parse(localStorage.getItem('userdata')).name,
-                email: JSON.parse(localStorage.getItem('userdata')).email,
-                image: JSON.parse(localStorage.getItem('userdata')).image
-            });
-            setTokenContext({token: JSON.parse(localStorage.getItem('userdata')).token});
-        }
-    }, []);
 
     return (
-        <TokenContext.Provider value={{tokenContext, setTokenContext}}>
-            <UserContext.Provider value={{userContext, setUserContext, completedTasks, setCompletedTasks}}>
+            <UserContext.Provider value={{user, setUser, completedHabits, setCompletedHabits}}>
                 {!(
                     location.pathname === '/' ||
                     location.pathname === '/cadastro'
@@ -55,7 +47,6 @@ function App() {
                     {/* <Route path="/historico" element={<DataHistory />}></Route> */}
                 </Routes>
             </UserContext.Provider>
-        </TokenContext.Provider>
     );
 }
 

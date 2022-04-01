@@ -4,13 +4,13 @@ import {useContext} from "react";
 
 function Header() {
 
-    const {userContext} = useContext(UserContext);
-    console.log(userContext);
+    const {user} = useContext(UserContext);
+
 
     return (
         <HeaderApp >
             <span>TrackIt</span>
-            <img src={userContext.image} alt="" />
+            <img src={user.image} alt="" />
         </HeaderApp>
     );
 }

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { ThreeDots } from  'react-loader-spinner';
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
-import TokenContext from "../contexts/TokenContext";
 
 
 import Logo from "./../assets/trackit-logo.png";
@@ -16,8 +15,7 @@ function LoginPage () {
     const navigate = useNavigate();
     const [data, setData] = useState({email: "", password: ""});
     const [dataLoading, setDataLoading] = useState({loading: false, classNameLoading:""});
-    const { userContext, setUserContext } = useContext(UserContext);
-    const {tokenContext, setTokenContext} = useContext(TokenContext);
+    const { user, setUser } = useContext(UserContext);
 
 
 
@@ -39,10 +37,8 @@ function LoginPage () {
                 image: response.data.image, 
                 token: response.data.token 
             }));
-            console.log(response);
             const {data} = response;
-            setUserContext({...userContext, name: data.name, image: data.image, email: data.email});
-            setTokenContext({...tokenContext, token: data.token});
+            setUser({...user, name: data.name, image: data.image, email: data.email, token: data.token});
             navigate("/hoje")
         })
         promise.catch((error) => {

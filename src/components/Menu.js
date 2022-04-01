@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import UserContext from '../contexts/UserContext';
 
 function Menu() {
-    const { completedTasks } = useContext(UserContext);
+    const { completedHabits } = useContext(UserContext);
     const navigate = useNavigate();
 
     return (
@@ -16,7 +16,7 @@ function Menu() {
             <Link to="/hoje">
                 <CircularProgressbar
                     className="progressbar"
-                    value={completedTasks}
+                    value={completedHabits}
                     text={'Hoje'}
                     background={true}
                     backgroundPadding={6}
