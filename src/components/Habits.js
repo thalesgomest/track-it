@@ -1,38 +1,112 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import UserContext from '../contexts/UserContext';
 import styled from "styled-components";
+import { ThreeDots } from 'react-loader-spinner';
+import { BsTrash } from 'react-icons/bs';
+import { BsPlusSquareFill } from "react-icons/bs";
 
-import Habit from "./Habit";
+
+import CreateHabit from "./CreateHabit";
 
 
 function Habits() {
+
+    const [habits, setHabits] = useState();
+    const [formDisplayHidden, setFormDisplayHidden] = useState(false);
+    const { user } = useContext(UserContext);
+
+
+
+    function listHabits() {
+        const URL ='https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        };
+
+        const promise = axios.get(URL, config)
+        promise.then((response) => {
+            const {data} = response;
+            setHabits(data);
+        })
+            
+        promise.catch((err) => console.log(err.response.data.message));
+    };
+
+    // function deleteHabit(id) {
+    //     if (window.confirm('Deseja realmente excluir esse hábito?')) {
+    //         const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
+
+    //         const config = {
+    //             headers: {
+    //                 Authorization: `Bearer ${user.token}`,
+    //             },
+    //         };
+
+    //         const promise = axios.get(URL, config)
+    //         promise.then(listHabits);
+        
+    //         promise.catch((err) => console.log(err.response.data.message));
+    //     };
+    // }
+
+    useEffect(() => {
+        listHabits();
+        // eslint-disable-next-line  react-hooks/exhaustive-deps
+    }, []);
+
+    console.log(habits)
+
     return(
-        <Container>
+        <HabitsContainer>
             <HabitsHeader>
-                <h1>My Habits</h1>
-                <button>
-                    <ion-icon name="add-outline"></ion-icon>
-                </button>
+                <h1>Meu Hábitos</h1>
+                <BsPlusSquareFill className="add-habit" onClick={()=>setFormDisplayHidden(!formDisplayHidden)}/>
             </HabitsHeader>
-            <HabitsContainer>
-                <Habit />
-                <Habit />
-                <Habit />
-                <Habit />
-            </HabitsContainer>
-        </Container>
+            <CreateHabit formDisplayHidden={formDisplayHidden} setFormDisplayHidden={setFormDisplayHidden} listHabits={() => listHabits()}/>
+            {/* <div className="habits">
+                {habits ? (
+                    habits.map(({ id, name, days }) => (
+                        <div className="habit" key={id}>
+                            <p className="title">{name}</p>
+                            <div className="days">{daysBuilder({ days })}</div>
+                            <BsTrash
+                                className="trash"
+                                onClick={() => deleteHabit(id)}
+                            />
+                        </div>
+                    ))
+                ) : (
+                    <p>
+                        Você não tem nenhum hábito cadastrado ainda. Adicione um
+                        hábito para começar a trackear!
+                    </p>
+                )}
+            </div> */}
+        </HabitsContainer>
     );
-}
+};
 
 export default Habits;
 
-const Container = styled.div`
+const HabitsContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #E5E5E5;
     min-width: 100vw;
     min-height: 100vh;
+    
+    p {
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 17.976px;
+        color: #666666;
+    }
 `;
 
 const HabitsHeader = styled.div`
@@ -51,22 +125,9 @@ const HabitsHeader = styled.div`
     color: #126BA5;
     }
 
-    button {
+    .add-habit {
         width: 40px;
         height: 35px;
-        background: #52B6FF;
-        border-radius: 4.63636px;
-        border: none;
+        color: #52B6FF;
     }
-
-    ion-icon {
-        color: rgba(255, 255, 255, 1);
-        font-size: 26.976px;
-    }
-`;
-
-const HabitsContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 `;

@@ -19,7 +19,7 @@ export default TodayHabit;
 
 const TodayHabitContainer = styled.div`
     width: 340px;
-    height: 94px;
+    min-height: 94px;
     background-color:#f7f7f7;
     border-radius: 5px;
     position: relative;
@@ -36,6 +36,8 @@ const TodayHabitContainer = styled.div`
         font-size: 19.976px;
         color: #666666;
         margin: 13px 0 7px 15px;
+        width: 235px;
+        flex-wrap: wrap;
     }
 
     p {

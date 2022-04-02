@@ -24,6 +24,7 @@ function Today() {
         const promise = axios.get(URL, config);
         promise.then((response) => {
             setTodayHabits(response.data);
+            console.log(response.data);
             setCompletedHabits(
                 (response.data.filter((habit) => habit.done).length /
                     response.data.length) * 100
@@ -32,24 +33,6 @@ function Today() {
         promise.catch((error) => {console.log(error.response.data.message)});
     }
 
-    function getTodayHabits(){
-        const URL = 
-            'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today';
-
-            const config = {
-            headers: {
-                Authorization: `Bearer ${user.token}`,
-            },
-        };
-        const promise = axios.get(URL, config);
-        promise.then((response) => {
-            console.log("Deu Bom!")
-            console.log(response)
-            setTodayHabits(response.data);
-        })
-        promise.catch((error) => {console.log(error.response.data.message)});
-    }
-    
     function toggle(id) {
         todayHabits.find((habit) => habit.id === id).done
                     ? uncheckHabit(id)
@@ -151,5 +134,7 @@ const TodayContainer = styled.div`
         align-items: center;
     }
 
-
+    .habits-done {
+        color: #8FC549
+    }
 `;
