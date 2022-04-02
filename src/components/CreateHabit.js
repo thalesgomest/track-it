@@ -43,7 +43,7 @@ function CreateHabit({formDisplayHidden, setFormDisplayHidden, listHabits}) {
         const promise = axios.post(URL, body, config);
         promise.then((response) => {
             console.log("Deu certo")
-                // listHabits();
+                listHabits();
                 setFormDisplayHidden(false);
                 setLoading(false);
                 setHabit({ name: '', days: [] });
@@ -84,6 +84,7 @@ const FormCreateHabit = styled.form`
     border-radius: 5px;
     text-align: center;
     opacity: 1;
+    margin-bottom: 20px;
 
     input {
         width: 303px;
@@ -165,7 +166,7 @@ const DayContainer = styled.div`
     font-style: normal;
     font-weight: 400;
     font-size: 19.976px;
-    color: ${({id, days }) => days.includes(id === 0 ? 7 : id) ? "#FFFFFF" : "#DBDBDB" };;
+    color: ${({id, days }) => days.includes(id === 0 ? 7 : id) ? "#FFFFFF" : "#DBDBDB" };
 `;
 
 

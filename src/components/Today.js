@@ -132,6 +132,14 @@ const TodayContainer = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        p {
+            font-family: 'Lexend Deca';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 17.976px;
+            color: #BABABA;
+        }
     }
 
     .habits-done {

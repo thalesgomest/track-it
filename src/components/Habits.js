@@ -15,6 +15,7 @@ function Habits() {
     const [habits, setHabits] = useState();
     const [formDisplayHidden, setFormDisplayHidden] = useState(false);
     const { user } = useContext(UserContext);
+    const daysOfWeek = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
 
 
@@ -28,6 +29,7 @@ function Habits() {
         };
 
         const promise = axios.get(URL, config)
+
         promise.then((response) => {
             const {data} = response;
             setHabits(data);
@@ -36,56 +38,58 @@ function Habits() {
         promise.catch((err) => console.log(err.response.data.message));
     };
 
-    // function deleteHabit(id) {
-    //     if (window.confirm('Deseja realmente excluir esse hábito?')) {
-    //         const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
+    function deleteHabit(id) {
+        console.log(id)
+        if (window.confirm('Deseja realmente excluir esse hábito?')) {
+            const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
 
-    //         const config = {
-    //             headers: {
-    //                 Authorization: `Bearer ${user.token}`,
-    //             },
-    //         };
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
 
-    //         const promise = axios.get(URL, config)
-    //         promise.then(listHabits);
+            const promise = axios.delete(URL, config)
+            promise.then(listHabits);
         
-    //         promise.catch((err) => console.log(err.response.data.message));
-    //     };
-    // }
+            promise.catch((err) => console.log(err.response.data.message));
+        };
+    }
 
     useEffect(() => {
         listHabits();
         // eslint-disable-next-line  react-hooks/exhaustive-deps
     }, []);
 
-    console.log(habits)
-
-    return(
+    return (
         <HabitsContainer>
             <HabitsHeader>
-                <h1>Meu Hábitos</h1>
+                <h1>Meus Hábitos</h1>
                 <BsPlusSquareFill className="add-habit" onClick={()=>setFormDisplayHidden(!formDisplayHidden)}/>
             </HabitsHeader>
             <CreateHabit formDisplayHidden={formDisplayHidden} setFormDisplayHidden={setFormDisplayHidden} listHabits={() => listHabits()}/>
-            {/* <div className="habits">
-                {habits ? (
-                    habits.map(({ id, name, days }) => (
-                        <div className="habit" key={id}>
-                            <p className="title">{name}</p>
-                            <div className="days">{daysBuilder({ days })}</div>
-                            <BsTrash
-                                className="trash"
-                                onClick={() => deleteHabit(id)}
-                            />
-                        </div>
-                    ))
-                ) : (
-                    <p>
-                        Você não tem nenhum hábito cadastrado ainda. Adicione um
-                        hábito para começar a trackear!
-                    </p>
-                )}
-            </div> */}
+            {habits ? (
+                habits.map(({id, name, days}) => (
+                <>
+                <HabitContainer className="habit" key={name}>
+                    <p className="habit-name">{name}</p>
+                    <DaysContainerHabit >
+                    {daysOfWeek.map((day, index) => { return (
+                        <DayContainerHabit className="day-container" key={index} id={index} days={days}>
+                            <p>{day}</p>
+                        </DayContainerHabit>)
+                    })}
+                    </DaysContainerHabit>
+                    <BsTrash className="trash-icon" onClick={() => deleteHabit(id)}/>
+                </HabitContainer>
+                </>   
+            ))) : (
+                <p>
+                    Você não tem nenhum hábito cadastrado ainda. Adicione um
+                    hábito para começar a trackear!
+                </p>
+                )
+            }        
         </HabitsContainer>
     );
 };
@@ -99,6 +103,7 @@ const HabitsContainer = styled.div`
     background-color: #E5E5E5;
     min-width: 100vw;
     min-height: 100vh;
+    padding-bottom: 100px;
     
     p {
         font-family: 'Lexend Deca';
@@ -115,7 +120,7 @@ const HabitsHeader = styled.div`
     align-items: center;
     width: 375px;
     padding: 92px 18px 20px 18px;
-    
+
 
     h1 {
     font-family: 'Lexend Deca';
@@ -130,4 +135,61 @@ const HabitsHeader = styled.div`
         height: 35px;
         color: #52B6FF;
     }
+`;
+
+const HabitContainer = styled.div`
+    width: 340px;
+    height: 91px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    position: relative;
+    margin-bottom: 10px;
+
+    .trash-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 11px 10px 0 0;
+        color: rgba(102, 102, 102, 1);
+        font-size:15px;
+
+    }
+
+    .habit-name {
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19.976px;
+        color: #666666;
+        padding-top: 13px;
+        padding-left: 15px;
+    }
+`;
+
+const DaysContainerHabit = styled.div`
+    display: flex;
+    margin: 8px 0 0 14px;
+`;
+
+const DayContainerHabit = styled.div`
+
+    &:nth-child(-n+6) {
+        margin-right: 4px;
+    }
+    
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    background: ${({id, days }) => days.includes(id === 0 ? 7 : id) ? "rgba(207, 207, 207, 1)" : "rgba(255, 255, 255, 1)"};
+    border: 1px solid #D5D5D5;
+    font-family: 'Lexend Deca';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.976px;
+    color: ${({id, days }) => days.includes(id === 0 ? 7 : id) ? "#FFFFFF" : "#DBDBDB" };
 `;
