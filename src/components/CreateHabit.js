@@ -29,6 +29,13 @@ function CreateHabit({formDisplayHidden, setFormDisplayHidden, listHabits}) {
     function createHabit(e) {
 
         e.preventDefault();
+        
+        if (habit.days.length > 0) {
+            setLoading(true);
+        } else {
+            alert('Selecione pelo menos um dia da semana');
+            return
+        }
 
         const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
 
@@ -42,10 +49,8 @@ function CreateHabit({formDisplayHidden, setFormDisplayHidden, listHabits}) {
 
         const promise = axios.post(URL, body, config);
         promise.then((response) => {
-            console.log("Deu certo")
                 listHabits();
                 setFormDisplayHidden(false);
-                setLoading(false);
                 setHabit({ name: '', days: [] });
             })
             .catch((err) => {
@@ -61,7 +66,7 @@ function CreateHabit({formDisplayHidden, setFormDisplayHidden, listHabits}) {
         <DaysContainer>
             {daysOfWeek.map((day, index) => { 
                 return (
-                    <DayContainer key={index} id={index} days={habit.days} onClick={()=>selectionDays(index === 0 ? 7 : index)}>
+                    <DayContainer key={index} id={index} days={habit.days} onClick={()=>selectionDays(index)}>
                         <p>{day}</p>
                     </DayContainer>)
             })}
@@ -160,13 +165,13 @@ const DayContainer = styled.div`
     width: 30px;
     height: 30px;
     border-radius: 5px;
-    background: ${({id, days }) => days.includes(id === 0 ? 7 : id) ? "rgba(207, 207, 207, 1)" : "rgba(255, 255, 255, 1)"};
+    background: ${({id, days }) => days.includes(id) ? "rgba(207, 207, 207, 1)" : "rgba(255, 255, 255, 1)"};
     border: 1px solid #D5D5D5;
     font-family: 'Lexend Deca';
     font-style: normal;
     font-weight: 400;
     font-size: 19.976px;
-    color: ${({id, days }) => days.includes(id === 0 ? 7 : id) ? "#FFFFFF" : "#DBDBDB" };
+    color: ${({id, days }) => days.includes(id) ? "#FFFFFF" : "#DBDBDB" };
 `;
 
 

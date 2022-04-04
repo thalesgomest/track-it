@@ -24,7 +24,6 @@ function Today() {
         const promise = axios.get(URL, config);
         promise.then((response) => {
             setTodayHabits(response.data);
-            console.log(response.data);
             setCompletedHabits(
                 (response.data.filter((habit) => habit.done).length /
                     response.data.length) * 100
@@ -72,6 +71,7 @@ function Today() {
         }
         // eslint-disable-next-line
     }, []);
+
     
     return (
         <TodayContainer>
@@ -94,7 +94,10 @@ function Today() {
             <div className="today-habits">
                 {todayHabits ? todayHabits.map((habit) => 
                     <TodayHabit key={habit.id} habit={habit} handleClick={() => toggle(habit.id)} />)
-                : <p>Você não tem habitos para hoje</p>}
+                : 
+                <div className="text-no-habits">
+                    <p>Você não tem habitos para hoje</p>
+                </div>}
             </div>    
         </TodayContainer>
     );
@@ -132,6 +135,12 @@ const TodayContainer = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
+    
+    .text-no-habits {
+        position: absolute;
+        left: 0;
+        margin-left: 17px;
+    }
 
         p {
             font-family: 'Lexend Deca';
@@ -139,8 +148,10 @@ const TodayContainer = styled.div`
             font-weight: 400;
             font-size: 17.976px;
             color: #BABABA;
+            /* position: absolute; */
+
         }
-    }
+}
 
     .habits-done {
         color: #8FC549

@@ -9,6 +9,8 @@ import LoginPage from "./LoginPage";
 import Today from "./Today";
 import Header from "./Header";
 import Menu from "./Menu";
+import History from "./History";
+import HistoryBonus from "./HistoryBonus";
 
 import "./../css/reset.css"
 import "./../css/style.css"
@@ -44,7 +46,7 @@ function App() {
                     <Route path="/cadastro" element={<SignUpPage />}></Route>
                     <Route path="/habitos" element={<Habits />}></Route>
                     <Route path="/hoje" element={<Today />}></Route>
-                    {/* <Route path="/historico" element={<DataHistory />}></Route> */}
+                    <Route path="/historico" element={<HistoryBonus />}></Route>
                 </Routes>
             </UserContext.Provider>
     );

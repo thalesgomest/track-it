@@ -73,3 +73,6 @@ const TodayHabitContainer = styled.div`
     }
 `;
 
+export { TodayHabitContainer };
+
+

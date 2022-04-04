@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import UserContext from '../contexts/UserContext';
 import styled from "styled-components";
-import { ThreeDots } from 'react-loader-spinner';
 import { BsTrash } from 'react-icons/bs';
 import { BsPlusSquareFill } from "react-icons/bs";
 
@@ -60,6 +59,8 @@ function Habits() {
         listHabits();
         // eslint-disable-next-line  react-hooks/exhaustive-deps
     }, []);
+
+    console.log(habits);
 
     return (
         <HabitsContainer>
@@ -185,11 +186,11 @@ const DayContainerHabit = styled.div`
     width: 30px;
     height: 30px;
     border-radius: 5px;
-    background: ${({id, days }) => days.includes(id === 0 ? 7 : id) ? "rgba(207, 207, 207, 1)" : "rgba(255, 255, 255, 1)"};
+    background: ${({id, days }) => days.includes(id) ? "rgba(207, 207, 207, 1)" : "rgba(255, 255, 255, 1)"};
     border: 1px solid #D5D5D5;
     font-family: 'Lexend Deca';
     font-style: normal;
     font-weight: 400;
     font-size: 19.976px;
-    color: ${({id, days }) => days.includes(id === 0 ? 7 : id) ? "#FFFFFF" : "#DBDBDB" };
+    color: ${({id, days }) => days.includes(id) ? "#FFFFFF" : "#DBDBDB" };
 `;

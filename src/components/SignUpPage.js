@@ -8,7 +8,7 @@ import { ThreeDots } from  'react-loader-spinner';
 
 import Logo from "./../assets/trackit-logo.png";
 
-import imgCheckURL from "../utils/imgCheckURL";
+// import imgCheckURL from "../utils/imgCheckURL";
 
 
 
@@ -21,12 +21,12 @@ function SignUpPage() {
 
     function previewImage() {
 
-        if(!imgCheckURL(data.image)) {
-            alert ("Invalid Image URL");
-            setPreview("https://i.imgur.com/B83hy2z.png");
-        } else {
+        // if(!imgCheckURL(data.image)) {
+        //     alert ("Invalid Image URL");
+        //     setPreview("https://i.imgur.com/B83hy2z.png");
+        // } else {
             setPreview(data.image)
-        }
+        // }
     }
 
     function signUp(e) {
@@ -114,31 +114,6 @@ function SignUpPage() {
             </HomePage>
         </>
     )
-    // ) : (
-    //     <>
-    //         <HomePage>
-    //             <Img src={Logo} alt="TrackIt"/>
-    //             <p className="app-name">TrackIt</p>
-    //             <ProfileImage style={{ 
-    //                 backgroundImage: `url(${preview})` 
-    //                 }}>
-    //             </ProfileImage>
-    //             <Form onSubmit={signUp}>
-    //                 <input type="email" className="input-disabled" disabled placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value={data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
-    //                 <input type="password" className="input-disabled" disabled placeholder="Password" required value={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
-    //                 <input type="text" className="input-disabled" disabled placeholder="Name" required value={data.name} onChange={(e) => setData({...data, name: e.target.value})}/>
-    //                 <input type="text" className="input-disabled" disabled placeholder="Profile Image URL" required value={data.image} onChange={(e) => setData({...data, image: e.target.value})} />
-    //                 <button type="button" disabled onClick={previewImage}>Click for preview image profile</button>
-    //                 <button disabled>
-    //                     <ThreeDots color="rgba(255, 255, 255, 1)" height={13} width={51} />
-    //                 </button>
-    //                 <Link to="/">
-    //                     <Cadastro>Have a Account? Sign In</Cadastro>
-    //                 </Link>
-    //             </Form>
-    //         </HomePage>
-    //     </>
-    // )
 }
 
 export default SignUpPage;
