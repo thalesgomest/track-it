@@ -60,8 +60,6 @@ function Habits() {
         // eslint-disable-next-line  react-hooks/exhaustive-deps
     }, []);
 
-    console.log(habits);
-
     return (
         <HabitsContainer>
             <HabitsHeader>
@@ -71,8 +69,7 @@ function Habits() {
             <CreateHabit formDisplayHidden={formDisplayHidden} setFormDisplayHidden={setFormDisplayHidden} listHabits={() => listHabits()}/>
             {habits ? (
                 habits.map(({id, name, days}) => (
-                <>
-                <HabitContainer className="habit" key={name}>
+                <HabitContainer className="habit" key={id}>
                     <p className="habit-name">{name}</p>
                     <DaysContainerHabit >
                     {daysOfWeek.map((day, index) => { return (
@@ -83,9 +80,8 @@ function Habits() {
                     </DaysContainerHabit>
                     <BsTrash className="trash-icon" onClick={() => deleteHabit(id)}/>
                 </HabitContainer>
-                </>   
             ))) : (
-                <p>
+                <p className="no-habits-message">
                     Você não tem nenhum hábito cadastrado ainda. Adicione um
                     hábito para começar a trackear!
                 </p>
@@ -112,6 +108,7 @@ const HabitsContainer = styled.div`
         font-weight: 400;
         font-size: 17.976px;
         color: #666666;
+        padding: 0 10px;
     }
 `;
 

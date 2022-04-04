@@ -148,10 +148,8 @@ const TodayContainer = styled.div`
             font-weight: 400;
             font-size: 17.976px;
             color: #BABABA;
-            /* position: absolute; */
-
         }
-}
+    }
 
     .habits-done {
         color: #8FC549

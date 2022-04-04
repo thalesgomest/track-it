@@ -19,32 +19,32 @@ const History = () => {
 
     const [date, setDate] = useState(new Date());
     const [habitsHistory, setHabitsHistory] = useState([]);
-    const { user, setCompletedHabits } = useContext(UserContext);
     const [dateHabits, setDateHabits] = useState();
+    const { user, setCompletedHabits } = useContext(UserContext);   
 
-    const listTodayHabits = () => {
-        const URL =
-            'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today';
-        const config = {
-            headers: {
-                Authorization: `Bearer ${user.token}`,
-            },
+    function listTodayHabits() {
+            const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today';
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+            
+            const promise = axios.get(URL, config)
+            promise.then((response) => {
+                    setCompletedHabits(
+                        (response.data.filter((habit) => habit.done).length /
+                            response.data.length) *
+                            100
+                    );
+                })
+            promise.catch((err) => {
+                    alert(err.data.message);
+                });
         };
-        axios
-            .get(URL, config)
-            .then((response) => {
-                setCompletedHabits(
-                    (response.data.filter((habit) => habit.done).length /
-                        response.data.length) *
-                        100
-                );
-            })
-            .catch((err) => {
-                alert(err);
-            });
-    };
 
-    const getHabisHistory = () => {
+    function getHabisHistory() {
         const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/history/daily`;
 
         const config = {
@@ -53,19 +53,18 @@ const History = () => {
             },
         };
 
-        axios
-            .get(URL, config)
-            .then((response) => {
-                setHabitsHistory(response.data);
-                setDateHabits(
-                    response.data.find(
-                        (habit) =>
-                            habit.day ===
-                            date.toLocaleDateString('pt-br', dateOptions)
-                    )
-                );
-            })
-            .catch((err) => {
+        const promise = axios.get(URL, config)
+        promise.then((response) => {
+            setHabitsHistory(response.data);
+            setDateHabits(
+                response.data.find(
+                    (habit) =>
+                        habit.day ===
+                        date.toLocaleDateString('pt-br', dateOptions)
+                )
+            );
+        })
+        promise.catch((err) => {
                 alert(err.response.data.message);
             });
     };
@@ -73,7 +72,7 @@ const History = () => {
     useEffect(() => {
         getHabisHistory();
         listTodayHabits();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
@@ -158,12 +157,10 @@ const History = () => {
                                 {habit.done ? (
                                     <BsCheckSquareFill 
                                         className="check check-true"
-                                        background-color={'#8FC549'}
                                     />
                                 ) : (
                                     <BsFillXSquareFill
                                         className="check check-false"
-                                        fill={'#eb3d3a'}
                                     />
                                 )}
                             </TodayHabitContainer>
@@ -197,19 +194,7 @@ const HistoryContainer = styled.div`
     padding: 28px 18px;
     background: #e5e5e5;
     overflow-y: auto;
-    /* ::-webkit-scrollbar {
-        width: 7px;
-    }
-    ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px grey;
-        background: #f1f1f1;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #888;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    } */
+    
     .react-calendar {
         width: 100%;
         border: none;
@@ -309,6 +294,7 @@ const HistoryContainer = styled.div`
             fill: #eb3d3a;
         }
     }
+    
     .header {
         display: flex;
         justify-content: space-between;

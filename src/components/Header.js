@@ -10,7 +10,7 @@ function Header() {
     return (
         <HeaderApp >
             <span>TrackIt</span>
-            <img src={user.image} alt="" />
+            <img src={user.image} alt="profile" />
         </HeaderApp>
     );
 }

@@ -20,13 +20,7 @@ function SignUpPage() {
     const navigate = useNavigate();
 
     function previewImage() {
-
-        // if(!imgCheckURL(data.image)) {
-        //     alert ("Invalid Image URL");
-        //     setPreview("https://i.imgur.com/B83hy2z.png");
-        // } else {
-            setPreview(data.image)
-        // }
+        setPreview(data.image)
     }
 
     function signUp(e) {

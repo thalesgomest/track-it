@@ -9,7 +9,6 @@ import LoginPage from "./LoginPage";
 import Today from "./Today";
 import Header from "./Header";
 import Menu from "./Menu";
-import History from "./History";
 import HistoryBonus from "./HistoryBonus";
 
 import "./../css/reset.css"
