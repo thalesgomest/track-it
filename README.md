@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/97575616/161644905-b0769d17-a61f-4f59-8c50-abb48e86db22.png" width="500px" alt="">
+  <img src="https://user-images.githubusercontent.com/97575616/161644905-b0769d17-a61f-4f59-8c50-abb48e86db22.png" width="400px" alt="">
 </p>
 
 <h1 align="center">TrackIt</h1>
