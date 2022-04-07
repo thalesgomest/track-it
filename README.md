@@ -23,7 +23,7 @@
 
 
 ## Project Description
-<p align="justify">This is my third projetc with React in Driven Education Bootcamp. It consist in a complete habit tracking application, with sign up and login pages and use of ContextAPI and some libraries like <a href="https://www.npmjs.com/package/react-loader-spinner">react-loader-spinner</a>, <a href="https://www.npmjs.com/package/react-circular-progressbar">react-circular-progressbar</a>, <a href="https://day.js.org/">dayjs</a> and <a href="https://www.npmjs.com/package/react-calendar">react-calendar</a>!</p>
+<p align="justify">This is my fourth projetc with React in Driven Education Bootcamp. It consist in a complete habit tracking application, with sign up and login pages and use of ContextAPI and some libraries like <a href="https://www.npmjs.com/package/react-loader-spinner">react-loader-spinner</a>, <a href="https://www.npmjs.com/package/react-circular-progressbar">react-circular-progressbar</a>, <a href="https://day.js.org/">dayjs</a> and <a href="https://www.npmjs.com/package/react-calendar">react-calendar</a>!</p>
 
 ### Status
 ![status-finished](https://user-images.githubusercontent.com/97575616/152926720-d042178b-24c0-4d6b-94fb-0ccbd3c082cc.svg)
