@@ -33,6 +33,9 @@
 ## How to run
 
 1. Clone this repository
+```bash
+$ git clone https://github.com/thalesgomest/track-it.git
+```
 2. Install dependencies
 ```bash
 npm i
