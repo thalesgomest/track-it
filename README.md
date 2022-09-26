@@ -4,11 +4,11 @@
 
 ## 📑 Contents
 
--   [Project Description](#project-description)
--   [Status of work](#status-of-work)
--   [How to run](#how-to-run)
--   [Build with](#build-with)
--   [Contact](#contact)
+-   [Project Description](#-project-description)
+-   [Status of work](#-status-of-work)
+-   [How to run](#%EF%B8%8F-how-to-run)
+-   [Build with](#%EF%B8%8F-build-with)
+-   [Contact](#-contact)
 
 ## 📌 Project Description
 
