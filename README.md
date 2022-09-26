@@ -26,35 +26,24 @@
 <!-- ![status](https://img.shields.io/badge/Status-Progress-FFE70C?style=plastic) -->
 
 ## ⚙️ How to run
-
-Clone the repository:
-
 ```bash
+# Clone this repoository
 $ git clone https://github.com/thalesgomest/track-it.git
-```
 
-Install dependencies:
+# Change to project directory
+$ cd track-it
 
-```bash
-npm i
-```
+# Install all dependencies
+$ npm i
 
-Run the project with:
+# Run the project with
+$ npm start
 
-```bash
-npm start
-```
+# You can optionally build the project running
+$ npm run build
 
-You can optionally build the project running
-
-```bash
-npm run build
-```
-Finally
-
-```
-access http://localhost:3000 on your favorite browser
-
+# Finally
+$ The server will start on port:3000. Access http://localhost:3000 on your favorite browser
 ```
 
 ## 🛠️ Build with
