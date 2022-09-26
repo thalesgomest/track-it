@@ -15,8 +15,9 @@
 <p align="justify"><b>Track It</b> consist in a complete habit tracking application for you week. In this project you can create your account and manage your weekly activities. The project consume an api and some libraries like <a href="https://www.npmjs.com/package/react-loader-spinner">react-loader-spinner</a>, <a href="https://www.npmjs.com/package/react-circular-progressbar">react-circular-progressbar</a>, <a href="https://day.js.org/">dayjs</a> and <a href="https://www.npmjs.com/package/react-calendar">react-calendar</a>!</p>
 
 ## 📸 Mockup
-
-<img src="https://user-images.githubusercontent.com/97575616/192392401-07ca1785-00bb-4a9f-8318-1f48ed00a22a.png" width="100%" alt="mockup">
+<div  align="center" >
+<img  src="https://user-images.githubusercontent.com/97575616/192392401-07ca1785-00bb-4a9f-8318-1f48ed00a22a.png" alt="mockup">
+</div>
 
 ## 🚧 Status of work
 
