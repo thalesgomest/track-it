@@ -1,6 +1,5 @@
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/97575616/192405266-2d3dbaa1-93a7-4bdd-bc30-b779ed7fe2ed.png" width="100%" alt="banner">
-</p>
+
+<img src="https://user-images.githubusercontent.com/97575616/192447927-81b499a5-add9-417e-be7e-0ce1753656ae.png" width="100%" alt="banner">
 
 ## 📑 Contents
 
